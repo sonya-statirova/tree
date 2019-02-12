@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
 
 #define ADMINS_FILE "new_answers.txt"
 
@@ -335,7 +336,10 @@ Node** prog_answ, Node** your_answ, Node** question)
 
 	printf("Enter new question for difference between %s and %s:\n", prog_data, your_data);
 	char* question_data = (char*) calloc(101, sizeof(char));
-	scanf("%100[^\n]", question_data);
+
+	scanf("\n%[^\n]", question_data);
+	//scanf("%*s");
+	printf ("firts is: %d\n" ,*question_data);
 	*question = new Node(question_data);
 
 	free(prog_data);
@@ -371,6 +375,7 @@ Node* Node::Find_node_by_data(char* data)
 void Node::Choose_who_is_left_who_is_righ(Node* prog_answ, Node* your_answ)
 {
 	printf("%s for %s should be \"yes\" or \"no\"?\n", data_, prog_answ->data_);
+	//printf("\nData is :%d\n\n", *data_);
 	char answ[5] = {};
 
 	while (true)
@@ -391,10 +396,11 @@ void Node::Choose_who_is_left_who_is_righ(Node* prog_answ, Node* your_answ)
 		}
     else
     {
-      scanf("%*s");
+      //scanf("%*s");
       printf("Incorrect format of answer. Try again.\n");
     }
   }
+	//scanf ("\n");
 }
 
 //---------------------------------------------
@@ -443,4 +449,26 @@ void Node::Postorder_traverse_Delete_tree()
     this->right_->Postorder_traverse_Delete_tree();
 
   delete this;
+}
+
+//=============================================
+
+int main()
+{
+
+  FILE* fp = fopen("teachers.txt", "r+");
+	//FILE* fpw = fopen("teac.txt", "w");
+  //Node* root = Scan_tree(fp);
+  //fseek(fp, 0, SEEK_SET);
+  //printf("CHECKING RESULT: %d\n", Check_file(fp));
+  //Game(fp);
+	Put_new_answer_into_tree(fp);
+	//Node* root2 = root->Preorder_traverse_Copy_tree();
+	//root2->Preorder_traverse_Print_tree(fpw);
+  //root->Postorder_traverse_Delete_tree();
+	//root2->Postorder_traverse_Delete_tree();
+
+  fclose(fp);
+
+  return 0;
 }
